@@ -34,6 +34,9 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+# Explicitly include .env.example files (they should be tracked)
+!**/*.env.example
+!.env.example
 
 # temp directory
 .temp
