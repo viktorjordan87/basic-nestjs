@@ -1,0 +1,6 @@
+{
+  "watch": ["apps/mongo-nestjs"],
+  "ext": "ts",
+  "ignore": ["apps/mongo-nestjs/**/*.spec.ts", "node_modules"],
+  "exec": "nest start mongo-nestjs"
+}

@@ -19,6 +19,15 @@
         "tsConfigPath": "apps/basic-nestjs/tsconfig.app.json"
       }
     },
+    "mongo-nestjs": {
+      "type": "application",
+      "root": "apps/mongo-nestjs",
+      "entryFile": "main",
+      "sourceRoot": "apps/mongo-nestjs/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/mongo-nestjs/tsconfig.app.json"
+      }
+    },
     "second-nestjs": {
       "type": "application",
       "root": "apps/second-nestjs",
