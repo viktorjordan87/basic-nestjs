@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/second-nestjs/tsconfig.app.json"
       }
+    },
+    "typeorm-mysql": {
+      "type": "application",
+      "root": "apps/typeorm-mysql",
+      "entryFile": "main",
+      "sourceRoot": "apps/typeorm-mysql/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/typeorm-mysql/tsconfig.app.json"
+      }
     }
   }
 }

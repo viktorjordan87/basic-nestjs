@@ -5,9 +5,7 @@ import { ConfigModuleOptions } from '@nestjs/config';
  * @param projectName - The name of the project/app (e.g., 'basic-nestjs', 'second-nestjs')
  * @returns ConfigModuleOptions with environment-specific file paths
  */
-export function getEnvironmentConfig(
-  projectName: string,
-): ConfigModuleOptions<Record<string, any>> {
+export function getEnvironmentConfig(projectName: string): ConfigModuleOptions {
   const nodeEnv = process.env.NODE_ENV || 'development';
 
   return {
