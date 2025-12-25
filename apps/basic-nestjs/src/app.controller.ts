@@ -18,6 +18,7 @@ import { Roles } from './decorators/roles.decorator';
 import { LoggingInterceptor, TimeoutInterceptor } from './interceptors';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import { User, UserObjectValue } from './decorators';
 
 @Controller()
 export class AppController {
@@ -96,5 +97,21 @@ export class AppController {
   async timeout(): Promise<Observable<string>> {
     await new Promise((resolve) => setTimeout(resolve, 4000)); // test > 5000ms
     return of('Hello, world!');
+  }
+
+  //test user decorator
+  @Get('user-info')
+  @Roles(['admin'])
+  @UseGuards(RolesGuard)
+  getUserInfo(@User() user: { role: string }): { role: string } {
+    return user;
+  }
+
+  //user id
+  @Get('user-id')
+  @Roles(['admin'])
+  @UseGuards(RolesGuard)
+  getUserId(@UserObjectValue('id') userId: string): string {
+    return userId;
   }
 }
