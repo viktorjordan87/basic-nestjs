@@ -5,9 +5,15 @@ import {
   Param,
   Query,
   ParseIntPipe,
+  UseGuards,
+  BadRequestException,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SmartTransformationPipe } from './pipes/transformation';
+import { AuthGuard } from './guards/auth.guard';
+import { RolesGuard } from './guards/roles.guard';
+import { generateUserToken } from './utils/jwt.util';
+import { Roles } from './decorators/roles.decorator';
 
 @Controller()
 export class AppController {
@@ -20,11 +26,14 @@ export class AppController {
 
   //testing the parse int pipe
   @Get('random-number/:number')
+  @Roles(['user'])
+  @UseGuards(RolesGuard)
   getRandomNumber(@Param('number', ParseIntPipe) number: number): number {
     return Math.floor(Math.random() * 100) * number;
   }
 
   //testing the parse int pipe
+  @UseGuards(AuthGuard)
   @Get('random-number-2/:number')
   getRandomNumber2(
     @Param(
@@ -51,5 +60,28 @@ export class AppController {
     @Query('limit', SmartTransformationPipe) limit: number,
   ): { page: number; limit: number } {
     return { page, limit };
+  }
+
+  // Generate JWT token
+  @Get('generate-token')
+  generateToken(
+    @Query('role') role: 'admin' | 'user' | 'guest' = 'user',
+    @Query('userId') userId: string,
+  ): { token: string; payload: unknown } {
+    if (!userId) {
+      throw new BadRequestException('userId query parameter is required');
+    }
+
+    const token = generateUserToken(role, userId);
+
+    // Decode token to show payload (without verification, just for display)
+    const payload = JSON.parse(
+      Buffer.from(token.split('.')[1], 'base64').toString(),
+    ) as unknown;
+
+    return {
+      token,
+      payload,
+    };
   }
 }
