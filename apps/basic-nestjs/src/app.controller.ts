@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   UseGuards,
   BadRequestException,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SmartTransformationPipe } from './pipes/transformation';
@@ -14,6 +15,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { generateUserToken } from './utils/jwt.util';
 import { Roles } from './decorators/roles.decorator';
+import { LoggingInterceptor, TimeoutInterceptor } from './interceptors';
+import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 @Controller()
 export class AppController {
@@ -26,8 +30,9 @@ export class AppController {
 
   //testing the parse int pipe
   @Get('random-number/:number')
-  @Roles(['user'])
+  @Roles(['admin'])
   @UseGuards(RolesGuard)
+  @UseInterceptors(LoggingInterceptor)
   getRandomNumber(@Param('number', ParseIntPipe) number: number): number {
     return Math.floor(Math.random() * 100) * number;
   }
@@ -83,5 +88,13 @@ export class AppController {
       token,
       payload,
     };
+  }
+
+  //test timeout interceptor
+  @Get('timeout')
+  @UseInterceptors(TimeoutInterceptor)
+  async timeout(): Promise<Observable<string>> {
+    await new Promise((resolve) => setTimeout(resolve, 4000)); // test > 5000ms
+    return of('Hello, world!');
   }
 }
