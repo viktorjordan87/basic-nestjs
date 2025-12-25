@@ -1,11 +1,9 @@
 import {
   Controller,
   Get,
-  Post,
   HttpStatus,
   Param,
   Query,
-  Body,
   ParseIntPipe,
 } from '@nestjs/common';
 import { AppService } from './app.service';
