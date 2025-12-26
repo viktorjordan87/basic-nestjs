@@ -19,6 +19,7 @@ export const onConnectionCreate = (connection: Connection) => {
 
   return connection;
 };
+
 export const getMongooseConfig = async (
   configService: ConfigService,
 ): Promise<MongooseModuleOptions> => {
