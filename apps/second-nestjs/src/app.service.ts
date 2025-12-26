@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class SecondNestjsService {
+export class AppService {
   getHello(): string {
     return 'Hello World from second nestjs!';
   }
