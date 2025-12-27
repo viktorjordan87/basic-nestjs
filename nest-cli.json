@@ -40,6 +40,16 @@
         "tsConfigPath": "apps/second-nestjs/tsconfig.app.json"
       }
     },
+    "third-nestjs": {
+      "type": "application",
+      "root": "apps/third-nestjs",
+      "entryFile": "main",
+      "sourceRoot": "apps/third-nestjs/src",
+      "compilerOptions": {
+        "builder": "swc",
+        "tsConfigPath": "apps/third-nestjs/tsconfig.app.json"
+      }
+    },
     "typeorm-mysql": {
       "type": "application",
       "root": "apps/typeorm-mysql",

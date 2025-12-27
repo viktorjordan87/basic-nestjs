@@ -1,6 +1,0 @@
-{
-  "watch": ["apps/typeorm-mysql"],
-  "ext": "ts",
-  "ignore": ["apps/typeorm-mysql/**/*.spec.ts", "node_modules"],
-  "exec": "nest start typeorm-mysql --watch"
-}

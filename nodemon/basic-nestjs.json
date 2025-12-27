@@ -1,6 +1,0 @@
-{
-  "watch": ["apps/basic-nestjs"],
-  "ext": "ts",
-  "ignore": ["apps/basic-nestjs/**/*.spec.ts", "node_modules"],
-  "exec": "nest start basic-nestjs --watch"
-}

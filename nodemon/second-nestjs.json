@@ -1,6 +1,0 @@
-{
-  "watch": ["apps/second-nestjs"],
-  "ext": "ts",
-  "ignore": ["apps/second-nestjs/**/*.spec.ts", "node_modules"],
-  "exec": "nest start second-nestjs --watch"
-}
