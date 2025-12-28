@@ -47,6 +47,7 @@
       "sourceRoot": "apps/third-nestjs/src",
       "compilerOptions": {
         "builder": "swc",
+        "webpack": true,
         "tsConfigPath": "apps/third-nestjs/tsconfig.app.json"
       }
     },
