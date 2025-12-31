@@ -8,6 +8,7 @@ import { DrinksModule } from './drinks/drinks.module';
 import { BeersModule } from './beers/beers.module';
 import { AnimalsModule } from './animals/animals.module';
 import { CatsModule } from './cats/cats.module';
+import { DiscoveriesModule } from './discoveries/discoveries.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CatsModule } from './cats/cats.module';
     BeersModule,
     AnimalsModule,
     CatsModule,
+    DiscoveriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

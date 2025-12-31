@@ -17,12 +17,18 @@ export class DynamicConfigService {
     if (!process.env.NODE_ENV) {
       throw new Error('NODE_ENV is not set');
     }
+    const projectName = this.configService.get<string>('PROJECT_NAME');
+    if (!projectName) {
+      throw new Error(
+        'PROJECT_NAME is not set in environment variables. Please add PROJECT_NAME="third-nestjs" to apps/third-nestjs/.env',
+      );
+    }
     const envFile = `.${process.env.NODE_ENV}.env`;
     const workspaceRoot = process.cwd();
     const filePath = resolve(
       workspaceRoot,
       'apps',
-      this.configService.get('PROJECT_NAME') as string,
+      projectName,
       this.options.folder,
       envFile,
     );
