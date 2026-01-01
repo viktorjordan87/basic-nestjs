@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { GracefulShutdownHandler } from './shutdown/graceful-shutdown.handler';
 
 // Store app instance globally for testing purposes (development only)
@@ -18,6 +18,19 @@ async function bootstrap() {
   if (process.env.NODE_ENV !== 'production') {
     global.appInstance = app;
   }
+
+  // Global validation pipe
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Strip properties that don't have decorators
+      forbidNonWhitelisted: false, // Don't throw error if non-whitelisted properties are sent, Perfect for versioning APIs
+      transform: true, // Automatically transform payloads to DTO instances
+      transformOptions: {
+        enableImplicitConversion: true, // Enable implicit type conversion
+      },
+      disableErrorMessages: false, //some production environments prefer to disable detailed errors, then set to true
+    }),
+  );
 
   // Enable graceful shutdown
   app.enableShutdownHooks();

@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-
-export type ProductDocument = HydratedDocument<Product>;
+import { HydratedDocument, InferSchemaType } from 'mongoose';
 
 @Schema()
 export class Product {
@@ -12,4 +10,8 @@ export class Product {
   barCode: string;
 }
 
+export type ProductDocument = HydratedDocument<Product>;
+
 export const ProductSchema = SchemaFactory.createForClass(Product);
+
+export type ProductType = InferSchemaType<typeof ProductSchema>;

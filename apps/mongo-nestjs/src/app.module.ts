@@ -10,6 +10,7 @@ import { SalesModule } from './modules/sales';
 import { UsersModule } from './modules/users';
 import { ProductsModule } from './modules/products';
 import { ShutdownService } from './shutdown/shutdown.service';
+import { CustomersModule } from './modules/customers/customers.module';
 
 /**
  * Async provider that waits for MongoDB connection to be established.
@@ -42,6 +43,7 @@ const MongoDBConnectionProvider = {
     SalesModule,
     UsersModule,
     ProductsModule,
+    CustomersModule,
   ],
   controllers: [AppController],
   providers: [AppService, MongoDBConnectionProvider, ShutdownService],
