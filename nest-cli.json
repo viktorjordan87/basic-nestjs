@@ -40,6 +40,15 @@
         "tsConfigPath": "apps/second-nestjs/tsconfig.app.json"
       }
     },
+    "test-nestjs": {
+      "type": "application",
+      "root": "apps/test-nestjs",
+      "entryFile": "main",
+      "sourceRoot": "apps/test-nestjs/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/test-nestjs/tsconfig.app.json"
+      }
+    },
     "third-nestjs": {
       "type": "application",
       "root": "apps/third-nestjs",
