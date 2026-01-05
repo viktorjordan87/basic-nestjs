@@ -11,6 +11,8 @@ import { UsersModule } from './modules/users';
 import { ProductsModule } from './modules/products';
 import { ShutdownService } from './shutdown/shutdown.service';
 import { CustomersModule } from './modules/customers/customers.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { CachesModule } from './modules/caches/caches.module';
 
 /**
  * Async provider that waits for MongoDB connection to be established.
@@ -32,6 +34,9 @@ const MongoDBConnectionProvider = {
 
 @Module({
   imports: [
+    CacheModule.register({
+      isGlobal: true,
+    }),
     ConfigModule.forRoot(getEnvironmentConfig('mongo-nestjs')),
     MongooseModule.forRootAsync({
       inject: [ConfigService],
@@ -44,6 +49,7 @@ const MongoDBConnectionProvider = {
     UsersModule,
     ProductsModule,
     CustomersModule,
+    CachesModule,
   ],
   controllers: [AppController],
   providers: [AppService, MongoDBConnectionProvider, ShutdownService],
