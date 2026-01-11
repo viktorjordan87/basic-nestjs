@@ -34,3 +34,5 @@ export class CreateCustomerDto {
   @IsOptional()
   isActive?: boolean;
 }
+
+export type CreateCustomerType = CreateCustomerDto;

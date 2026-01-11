@@ -16,8 +16,8 @@ export class CustomersService {
     return await this.customerModel.create(createCustomerDto);
   }
 
-  findAll() {
-    return `This action returns all customers`;
+  async findAll(): Promise<CustomerType[]> {
+    return await this.customerModel.find().lean({ versionKey: false }).exec();
   }
 
   findOne(id: number) {
@@ -27,7 +27,7 @@ export class CustomersService {
   async findByCustomerId(customerId: string): Promise<CustomerType | null> {
     const customer = await this.customerModel
       .findOne({ customerId })
-      .lean<CustomerType>({ versionKey: false })
+      .lean({ versionKey: false })
       .exec();
     if (!customer) {
       throw new NotFoundException('Customer not found');
@@ -39,11 +39,11 @@ export class CustomersService {
     id: string,
     updateCustomerDto: UpdateCustomerDto,
   ): Promise<CustomerType | null> {
-    return this.customerModel
+    return await this.customerModel
       .findByIdAndUpdate(id, updateCustomerDto, {
         new: true,
       })
-      .lean<CustomerType>({ versionKey: false })
+      .lean({ versionKey: false })
       .exec();
   }
 

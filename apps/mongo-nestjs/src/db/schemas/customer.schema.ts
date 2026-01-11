@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, InferSchemaType, Types } from 'mongoose';
+import { HydratedDocument, InferSchemaType } from 'mongoose';
 import { v7 as uuidv7 } from 'uuid';
 
 /* Customer Address Schema */
@@ -46,8 +46,4 @@ export const CustomerSchema = SchemaFactory.createForClass(Customer);
 
 export type CustomerDocument = HydratedDocument<Customer>;
 
-export type CustomerType = InferSchemaType<typeof CustomerSchema> & {
-  _id: Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-};
+export type CustomerType = InferSchemaType<typeof CustomerSchema>;
