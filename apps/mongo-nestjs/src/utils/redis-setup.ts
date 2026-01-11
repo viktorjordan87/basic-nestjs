@@ -11,15 +11,30 @@ export async function setupRedisStore(
   configService: ConfigService,
 ): Promise<KeyvRedis<string>> {
   const logger = new Logger('Redis');
-  const redisHost = configService.get<string>('REDIS_HOST') || 'localhost';
-  const redisPort = configService.get<number>('REDIS_PORT') || 6379;
+
+  if (
+    !configService.get<string>('REDIS_USERNAME') ||
+    !configService.get<string>('REDIS_PASSWORD') ||
+    !configService.get<string>('REDIS_HOST') ||
+    !configService.get<number>('REDIS_PORT')
+  ) {
+    throw new Error(
+      'REDIS_USERNAME, REDIS_PASSWORD, REDIS_HOST and REDIS_PORT must be set',
+    );
+  }
+
+  const redisHost = configService.get<string>('REDIS_HOST');
+  const redisPort = configService.get<number>('REDIS_PORT');
+  const redisUsername = configService.get<string>('REDIS_USERNAME');
   const redisPassword = configService.get<string>('REDIS_PASSWORD');
 
   logger.log(`🔌 Connecting to Redis at ${redisHost}:${redisPort}...`);
 
+  // Build Redis URL with username and password
+  const redisUrl = `redis://${redisUsername}:${redisPassword}@${redisHost}:${redisPort}`;
+
   const redisStore = new KeyvRedis({
-    url: `redis://${redisHost}:${redisPort}`,
-    password: redisPassword,
+    url: redisUrl,
   });
 
   // Add error handling

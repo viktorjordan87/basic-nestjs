@@ -7,23 +7,12 @@ services:
       - '6379:6379'
     networks:
       - nestjs-network
-    command: redis-server --save 20 1 --loglevel warning --requirepass redispassword
-
-  redisinsight:
-    image: redis/redisinsight:latest
-    container_name: nestjs-redisinsight
-    restart: unless-stopped
-    ports:
-      - '5540:5540'
     volumes:
-      - redisinsight-data:/db
-    networks:
-      - nestjs-network
+      - ./redis.conf:/usr/local/etc/redis/redis.conf:ro
+    command: redis-server /usr/local/etc/redis/redis.conf
 
 volumes:
   mysql_data:
-    driver: local
-  redisinsight-data:
     driver: local
 
 networks:
