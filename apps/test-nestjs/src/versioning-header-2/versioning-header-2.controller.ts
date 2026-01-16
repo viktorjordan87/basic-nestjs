@@ -1,3 +1,4 @@
+import { SchedulerRegistry } from '@nestjs/schedule';
 import {
   Controller,
   Get,
@@ -16,6 +17,7 @@ import { UpdateVersioningHeader2Dto } from './dto/update-versioning-header-2.dto
 export class VersioningHeader2Controller {
   constructor(
     private readonly versioningHeader2Service: VersioningHeader2Service,
+    private schedulerRegistry: SchedulerRegistry,
   ) {}
 
   @Post()
@@ -38,7 +40,7 @@ export class VersioningHeader2Controller {
   @Get()
   @Version(['3', '4'])
   findAll() {
-    return this.versioningHeader2Service.findAll();
+    return this.versioningHeader2Service.findAll(this.schedulerRegistry);
   }
 
   @Get()
