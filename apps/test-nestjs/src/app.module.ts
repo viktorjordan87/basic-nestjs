@@ -7,6 +7,8 @@ import { CatsModule } from './cats/cats.module';
 import { VersioningUrlModule } from './versioning-url/versioning-url.module';
 import { VersioningHeaderModule } from './versioning-header/versioning-header.module';
 import { VersioningHeader2Module } from './versioning-header-2/versioning-header-2.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { CrontasksModule } from './crontasks/crontasks.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { VersioningHeader2Module } from './versioning-header-2/versioning-header
     VersioningUrlModule,
     VersioningHeaderModule,
     VersioningHeader2Module,
+    ScheduleModule.forRoot(),
+    CrontasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
