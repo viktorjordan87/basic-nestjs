@@ -1,9 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { VersioningType } from '@nestjs/common';
+import { ConsoleLogger, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new ConsoleLogger({
+      // json: true,
+      colors: true,
+    }),
+  });
   //URI versioning
   /*  app.enableVersioning({
     type: VersioningType.URI,

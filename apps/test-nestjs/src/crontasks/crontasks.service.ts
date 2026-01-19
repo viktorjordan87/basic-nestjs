@@ -10,7 +10,9 @@ import { CRONTASKS_NAMES } from './crontasks-names';
 
 @Injectable()
 export class CrontasksService {
-  private readonly logger = new Logger(CrontasksService.name);
+  private readonly logger = new Logger(CrontasksService.name, {
+    timestamp: true,
+  });
 
   constructor(private schedulerRegistry: SchedulerRegistry) {}
 
