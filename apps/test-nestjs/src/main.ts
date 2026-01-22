@@ -7,6 +7,8 @@ async function bootstrap() {
     logger: new ConsoleLogger({
       // json: true,
       colors: true,
+      // timestamp: true,
+      // prefix: 'TEST-NESTJS',
     }),
   });
   //URI versioning
