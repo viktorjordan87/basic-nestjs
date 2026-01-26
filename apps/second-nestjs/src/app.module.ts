@@ -7,6 +7,7 @@ import { CatsModule } from './cats/cats.module';
 import { DogsModule } from './dogs/dogs.module';
 import { HorsesModule } from './horses/horses.module';
 import { GreetingModule } from './greeting/greeting.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -15,6 +16,11 @@ import { GreetingModule } from './greeting/greeting.module';
     DogsModule,
     HorsesModule,
     GreetingModule,
+    EventEmitterModule.forRoot({
+      wildcard: false,
+      delimiter: '.',
+      maxListeners: 10,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
