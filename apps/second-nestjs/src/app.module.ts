@@ -16,6 +16,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     DogsModule,
     HorsesModule,
     GreetingModule,
+    // https://docs.nestjs.com/techniques/events
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- EventEmitterModule types not resolved in this project's tsconfig
     EventEmitterModule.forRoot({
       wildcard: false,
       delimiter: '.',
