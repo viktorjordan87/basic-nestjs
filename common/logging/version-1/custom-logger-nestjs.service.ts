@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import { LoggerService } from '@nestjs/common';
 import { join } from 'path';
 import fs from 'fs';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class CustomLoggerNestjsService implements LoggerService {
   private readonly logsFolder = join(process.cwd(), 'logs');
   private readonly projectLogsFolder: string;
@@ -18,10 +18,7 @@ export class CustomLoggerNestjsService implements LoggerService {
   }
 
   log(message: any, ...optionalParams: any[]): void {
-    fs.appendFileSync(
-      join(this.projectLogsFolder, 'log.log'),
-      `${new Date().toISOString()} - ${message}\n`,
-    );
+    /* No need to log to file, we use the console.log */
     console.log(message, ...optionalParams);
   }
 

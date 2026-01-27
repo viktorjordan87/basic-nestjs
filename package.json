@@ -13,6 +13,7 @@
     "build:test": "nest build test-nestjs",
     "build:third": "nest build third-nestjs",
     "build:typeorm-mysql": "nest build typeorm-mysql",
+    "build:fastify": "nest build fastify",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start basic-nestjs",
     "start:dev": "concurrently \"npm run start:dev:basic\" \"npm run start:dev:second\" \"npm run start:dev:third\" \"npm run start:dev:typeorm-mysql\" \"npm run start:dev:mongo\" \"npm run start:dev:mongo\"",
@@ -22,6 +23,7 @@
     "start:dev:typeorm-mysql": "nest start typeorm-mysql --watch",
     "start:dev:test": "nest start test-nestjs --watch",
     "start:dev:mongo": "nest start mongo-nestjs --watch",
+    "start:dev:fastify": "nest start fastify --watch",
     "start:debug": "nest start basic-nestjs --debug --watch",
     "start:prod": "node dist/apps/basic-nestjs/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -41,6 +43,7 @@
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
+    "@fastify/cookie": "^11.0.2",
     "@keyv/redis": "^5.1.5",
     "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.0.1",
@@ -50,6 +53,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.4",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-fastify": "^11.1.12",
     "@nestjs/schedule": "^6.1.0",
     "@nestjs/typeorm": "^11.0.0",
     "cache-manager": "^7.2.7",
