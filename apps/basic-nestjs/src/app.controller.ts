@@ -8,7 +8,10 @@ import {
   UseGuards,
   BadRequestException,
   UseInterceptors,
+  Req,
+  Res,
 } from '@nestjs/common';
+import type { Request, Response } from 'express';
 import { AppService } from './app.service';
 import { SmartTransformationPipe } from './pipes/transformation';
 import { AuthGuard } from './guards/auth.guard';
@@ -22,11 +25,16 @@ import { User, UserObjectValue } from './decorators';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('get-cookie')
+  getCookie(@Req() request: Request, @Res() response: Response) {
+    this.appService.getCookie(request, response);
   }
 
   //testing the parse int pipe
