@@ -20,6 +20,11 @@ export class FilesService {
     return 'This action uploads multiple files';
   }
 
+  uploadMultipleFiles(files: Express.Multer.File[]) {
+    console.log(files);
+    return 'This action uploads multiple files';
+  }
+
   findAll() {
     return `This action returns all files`;
   }

@@ -4,7 +4,7 @@ import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import type { Express } from 'express';
-import { FileSizeValidationPipe } from '../pipes/validation';
+import { FileSizeValidation, FilesSizeValidation, FilesTypeValidation, FileTypeValidation } from '../pipes/validation';
 
 @Controller('files')
 export class FilesController {
@@ -14,9 +14,17 @@ export class FilesController {
   @UseInterceptors(FileInterceptor('file'))
   create(
     @Body() createFileDto: CreateFileDto,
-    @UploadedFile(new FileSizeValidationPipe(2.53)) file: Express.Multer.File,
+    @UploadedFile(new FileSizeValidation(3), new FileTypeValidation(['image/jpeg', 'image/jpg', 'image/webp', 'image/png'])) file: Express.Multer.File,
   ) {
     return this.filesService.create(createFileDto, file);
+  }
+
+  @Post('upload-multiple-files')
+  @UseInterceptors(FilesInterceptor('files'))
+  uploadMultipleFiles(
+    @UploadedFiles(new FilesSizeValidation(3), new FilesTypeValidation(['image/jpeg', 'image/jpg', 'image/webp'])) files: Express.Multer.File[],
+  ) {
+    return this.filesService.uploadMultipleFiles(files);
   }
 
   @Post('upload')
