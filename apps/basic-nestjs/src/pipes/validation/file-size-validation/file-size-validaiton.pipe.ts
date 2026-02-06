@@ -1,4 +1,5 @@
 import { ArgumentMetadata, BadRequestException, PipeTransform } from "@nestjs/common";
+import { UploadedFileBase } from "../../../files/upload-file.types";
 
 /**
  * Pipe to validate the size of a file
@@ -11,7 +12,7 @@ export class FileSizeValidation implements PipeTransform {
         this.maxSize = maxSize;
     }
 
-    transform(file: Express.Multer.File, metadata: ArgumentMetadata) {
+    transform(file: UploadedFileBase, metadata: ArgumentMetadata) {
         const oneKb = 1024;
         const oneMb = oneKb * 1024;
 
@@ -41,7 +42,7 @@ export class FilesSizeValidation implements PipeTransform {
         this.maxSize = maxSize;
     }
 
-    transform(files: Express.Multer.File[], metadata: ArgumentMetadata) {
+    transform(files: UploadedFileBase[], metadata: ArgumentMetadata) {
 
         if (files.length < 2) {
             throw new BadRequestException('Please upload at least two files');
@@ -81,7 +82,7 @@ export class FileTypeValidation implements PipeTransform {
         this.allowedTypes = allowedTypes;
     }
 
-    transform(file: Express.Multer.File, metadata: ArgumentMetadata) {
+    transform(file: UploadedFileBase, metadata: ArgumentMetadata) {
         const allowedTypes = this.allowedTypes;
 
         if (allowedTypes.length === 0) {
@@ -108,7 +109,7 @@ export class FilesTypeValidation implements PipeTransform {
         this.allowedTypes = allowedTypes;
     }
 
-    transform(files: Express.Multer.File[], metadata: ArgumentMetadata) {
+    transform(files: UploadedFileBase[], metadata: ArgumentMetadata) {
         const allowedTypes = this.allowedTypes;
 
         if (allowedTypes.length === 0) {
