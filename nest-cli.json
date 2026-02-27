@@ -39,6 +39,15 @@
         "tsConfigPath": "apps/mongo-nestjs/tsconfig.app.json"
       }
     },
+    "queue-nestjs": {
+      "type": "application",
+      "root": "apps/queue-nestjs",
+      "entryFile": "main",
+      "sourceRoot": "apps/queue-nestjs/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/queue-nestjs/tsconfig.app.json"
+      }
+    },
     "second-nestjs": {
       "type": "application",
       "root": "apps/second-nestjs",

@@ -1,0 +1,38 @@
+# =============================================================================
+# Docker Compose file: defines services (containers) that run together.
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Service name: "redis". You'll reference it by this name in your app.
+  # ---------------------------------------------------------------------------
+  redis:
+    # Image to pull from Docker Hub. "redis:latest" = official Redis, latest tag.
+    image: redis:latest
+
+    # Container restarts if it crashes or the host reboots.
+    restart: always
+
+    # Port mapping: "HOST_PORT:CONTAINER_PORT"
+    # Your app connects to localhost:6376; Docker forwards to 6379 inside the container.
+    ports:
+      - "6376:6379"
+
+    # Run Redis with our config file (user, password, persistence, log level).
+    command: redis-server /redis.conf
+
+    # Mounts: connect paths on your machine to paths inside the container.
+    volumes:
+      # Named volume "redis" → /data in container. Persists data between restarts.
+      - redis:/data
+      # Bind mount: local redis.conf → /redis.conf in container. Simple path that works in any Redis image.
+      - ./redis.conf:/redis.conf
+
+# =============================================================================
+# Volumes: named storage that Docker manages. Survives "docker compose down".
+# =============================================================================
+volumes:
+  # Volume name "redis". Used in services.redis.volumes as "redis:/data".
+  redis:
+    # Use the default local driver (storage on your machine).
+    driver: local
