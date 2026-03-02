@@ -6,6 +6,7 @@
  */
 export const QUEUE_NAMES = {
     JOB_QUEUE: 'job-queue',
+    IMAGE_QUEUE: 'image-queue',
 } as const;
 
 export type QueueNames = keyof typeof QUEUE_NAMES;
