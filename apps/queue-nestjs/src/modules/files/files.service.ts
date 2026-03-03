@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFileDto } from './dto/create-file.dto';
-import { UpdateFileDto } from './dto/update-file.dto';
+import { writeFile, mkdir } from 'fs/promises';
+import { join } from 'path';
+import type { FastifyFile } from './files.types';
 
 @Injectable()
 export class FilesService {
-  create(createFileDto: CreateFileDto) {
-    return 'This action adds a new file';
+  private readonly uploadDir = join(process.cwd(), 'uploads', 'queue');
+
+  private async ensureUploadDir() {
+    await mkdir(this.uploadDir, { recursive: true });
   }
 
-  findAll() {
-    return `This action returns all files`;
+  async uploadSingle(file: FastifyFile) {
+    await this.ensureUploadDir();
+
+    const filePath = join(this.uploadDir, file.originalname);
+    await writeFile(filePath, file.buffer);
+
+    return {
+      message: 'File uploaded successfully',
+      file: {
+        fieldname: file.fieldname,
+        originalname: file.originalname,
+        mimetype: file.mimetype,
+        size: file.size,
+      },
+    };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} file`;
-  }
+  async uploadMultiple(files: FastifyFile[]) {
+    await this.ensureUploadDir();
 
-  update(id: number, updateFileDto: UpdateFileDto) {
-    return `This action updates a #${id} file`;
-  }
+    for (const file of files) {
+      const filePath = join(this.uploadDir, file.originalname);
+      await writeFile(filePath, file.buffer);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} file`;
+    return {
+      message: `${files.length} file(s) uploaded successfully`,
+      files: files.map((f) => ({
+        fieldname: f.fieldname,
+        originalname: f.originalname,
+        mimetype: f.mimetype,
+        size: f.size,
+      })),
+    };
   }
 }

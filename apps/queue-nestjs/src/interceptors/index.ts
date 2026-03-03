@@ -1,0 +1,1 @@
+export { FastifyFileInterceptor, FastifyFilesInterceptor } from './files.interceptor';
