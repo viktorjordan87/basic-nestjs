@@ -4,6 +4,7 @@ import { getEnvironmentConfig } from '@common/config/environment.config';
 import { BullmqModule, BullBoardModule } from './libs/bullmq';
 import { FilesModule } from './modules/files/files.module';
 import { ImageConsumer, ImageEventListeners } from './queues/consumers';
+import { ExternalsModule } from './modules/externals/externals.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ImageConsumer, ImageEventListeners } from './queues/consumers';
     BullmqModule,
     BullBoardModule,
     FilesModule,
+    ExternalsModule,
   ],
   controllers: [],
   providers: [ImageConsumer, ImageEventListeners],
