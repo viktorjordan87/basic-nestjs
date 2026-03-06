@@ -1,0 +1,1 @@
+export type ImageJobData = { filePath: string, originalname: string, mimetype: string };
