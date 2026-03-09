@@ -5,6 +5,7 @@ import { BullmqModule, BullBoardModule } from './libs/bullmq';
 import { FilesModule } from './modules/files/files.module';
 import { ImageConsumer, ImageEventListeners } from './queues/consumers';
 import { ExternalsModule } from './modules/externals/externals.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ExternalsModule } from './modules/externals/externals.module';
     BullBoardModule,
     FilesModule,
     ExternalsModule,
+    SessionsModule,
   ],
   controllers: [],
   providers: [ImageConsumer, ImageEventListeners],
