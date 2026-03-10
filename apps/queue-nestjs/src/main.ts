@@ -4,7 +4,9 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 import multipart from '@fastify/multipart';
 import { MAX_FILE_SIZE_LIMIT, MAX_FILES_LIMIT } from './utils/constants';
 import secureSession from '@fastify/secure-session';
+import fastifyStaticPlugin from '@fastify/static';
 import path from 'path';
+import { VERSION_NEUTRAL, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,6 +16,11 @@ async function bootstrap() {
   console.log(
     `Application is running on: http://localhost:${process.env.PORT!}`,
   );
+
+  // app.enableVersioning({
+  //   type: VersioningType.URI,
+  //   defaultVersion: VERSION_NEUTRAL
+  // })
 
   await app.register(multipart, {
     limits: {
@@ -25,11 +32,14 @@ async function bootstrap() {
   await app.register(secureSession, {
     secret: process.env.SESSION_SECRET!,
     salt: process.env.SESSION_SALT!,
-  })
+  });
 
-  app.useStaticAssets({
-    root: path.join(__dirname, '..', 'public'),
-  })
+
+  await app.register(fastifyStaticPlugin, {
+    root: path.join(process.cwd(), 'apps', 'queue-nestjs', 'public'),
+    prefix: '/public/',
+  });
+
 
   await app.listen(process.env.PORT!);
 }
