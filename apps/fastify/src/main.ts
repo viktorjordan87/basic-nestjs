@@ -8,6 +8,7 @@ import fastifyCookie from '@fastify/cookie';
 import compression from '@fastify/compress';
 import multipart from '@fastify/multipart';
 import { MAX_FILE_SIZE_LIMIT, MAX_FILES_LIMIT } from './utils/constants';
+import './app.types';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(

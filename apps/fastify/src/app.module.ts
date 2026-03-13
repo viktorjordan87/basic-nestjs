@@ -6,9 +6,11 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { LionsModule } from './lions/lions.module';
 import { FilesModule } from './files/files.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(getEnvironmentConfig('fastify')), LionsModule, FilesModule],
+  imports: [ConfigModule.forRoot(getEnvironmentConfig('fastify')), LionsModule, FilesModule, AuthModule, UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
